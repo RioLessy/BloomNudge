@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "BloomNudge",
+  "version": "1.0.0",
+  "description": "Detect High-Arousal Negative Affect (HANA) on social media and trigger non-intrusive breathing overlays.",
+  "permissions": ["storage", "tabs", "alarms"],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://www.instagram.com/*",
+    "https://www.tiktok.com/*",
+    "https://www.facebook.com/*",
+    "https://www.twitter.com/*",
+    "https://x.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/serviceWorker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://www.instagram.com/*",
+        "https://www.tiktok.com/*",
+        "https://www.facebook.com/*",
+        "https://www.twitter.com/*",
+        "https://x.com/*"
+      ],
+      "js": [
+        "src/shared/constants.js",
+        "src/shared/utils.js",
+        "src/content/sentimentEngine.js",
+        "src/content/domObserver.js",
+        "src/content/uiNotifier.js",
+        "src/content/main.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "BloomNudge Dashboard",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "options_page": "options/dashboard.html",
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}
